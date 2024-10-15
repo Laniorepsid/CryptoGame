@@ -18,8 +18,13 @@
     "cors": "^2.8.5",
     "currency.js": "2.0.4",
     "dotenv": "4.0.0",
+<<<<<<< HEAD
     "execp": "^0.0.1",
     "express": "^4.18.1",
+=======
+    "express": "^4.18.1",
+    "execp": "^0.0.1",
+>>>>>>> 4e59aed (processing project)
     "fs": "^0.0.1-security",
     "glob": "7.1.1",
     "helmet": "^4.6.0",
@@ -40,7 +45,10 @@
     "transliteration": "^2.3.5"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "concurrently": "^7.5.0",
+=======
+>>>>>>> 4e59aed (processing project)
     "nodemon": "^1.19.2"
   },
   "_moduleAliases": {
