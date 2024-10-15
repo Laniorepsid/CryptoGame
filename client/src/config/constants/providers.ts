@@ -7,7 +7,7 @@ import { ChainId, SupportedChainsType } from '@baseswapfi/sdk-core'
 
 import { AVERAGE_L1_BLOCK_TIME } from './chainInfo'
 import { CHAIN_IDS_TO_NAMES } from './chains'
-import { RPC_URLS } from './networks'
+import { RPC_URLS } from './networks.ts.example'
 
 class AppJsonRpcProvider extends StaticJsonRpcProvider {
   private _blockCache = new Map<string, Promise<any>>()

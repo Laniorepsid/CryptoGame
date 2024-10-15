@@ -76,8 +76,12 @@ npm install
 ```
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 Replace ".envexample" file to ".env"
+=======
+Replace "client/src/config/constants/networks.txt" to "networks.ts"
+>>>>>>> ef21990 (edit)
 
 >>>>>>> 4e59aed (processing project)
 3. Start the project
