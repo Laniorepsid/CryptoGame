@@ -76,12 +76,16 @@ npm install
 ```
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Replace the extension of the file "src/config/constants/networks.txt" to networks.ts
 
 =======
 >>>>>>> 4e59aed (processing project)
 =======
 Change the name of the file "src/config/constants/networks.txt" to networks.ts
+=======
+Replace the extension of the file "src/config/constants/networks.txt" to networks.ts
+>>>>>>> 7f913d6 (update project)
 
 >>>>>>> cf874b8 (upgrade)
 
