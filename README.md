@@ -1,18 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # SwapMarketplace: Info
 
 A brief overview how Info part of SwapMarketplace website works.
-=======
-# BaseSwap: Info
-
-A brief overview how Info part of BaseSwap website works.
->>>>>>> 4e59aed (processing project)
-=======
-# SwapMarketplace: Info
-
-A brief overview how Info part of SwapMarketplace website works.
->>>>>>> cf874b8 (upgrade)
 
 ## Table of Contents
 
@@ -58,15 +46,7 @@ There are additional requests for price chart and search that are fired when use
 1. Clone the repository
 
 ```bash
-<<<<<<< HEAD
-<<<<<<< HEAD
 git clone https://github.com/ynovate-workspace/SwapMartketplace.git
-=======
-git clone https://github.com/neoStream15/BaseSwap.git
->>>>>>> 4e59aed (processing project)
-=======
-git clone https://github.com/ynovate-workspace/SwapMartketplace.git
->>>>>>> cf874b8 (upgrade)
 ```
 2. Go to the project directory and install dependencies for both the client and server
 
@@ -74,38 +54,14 @@ git clone https://github.com/ynovate-workspace/SwapMartketplace.git
 cd client
 npm install
 ```
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 Replace the extension of the file "src/config/constants/networks.txt" to networks.ts
 
-=======
->>>>>>> 4e59aed (processing project)
-=======
-Change the name of the file "src/config/constants/networks.txt" to networks.ts
-=======
-Replace the extension of the file "src/config/constants/networks.txt" to networks.ts
->>>>>>> 7f913d6 (update project)
-
->>>>>>> cf874b8 (upgrade)
 
 ```bash
 cd ..
 npm install
 ```
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Replace ".envexample" file to ".env"
-=======
-Replace "client/src/config/constants/networks.txt" to "networks.ts"
->>>>>>> ef21990 (edit)
-
->>>>>>> 4e59aed (processing project)
-=======
->>>>>>> cf874b8 (upgrade)
 3. Start the project
 
 ```bash
