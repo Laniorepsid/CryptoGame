@@ -1,69 +1,162 @@
-# SwapMarketplace: Info
+# CRYPTOOASIS_VER_2
 
-A brief overview how Info part of SwapMarketplace website works.
-
-## Table of Contents
-
-- [Project Overview](#Code-structure)
-- [Features](#Requests-flow)
-- [Technologies](#Installation)
-
-## Code structure
-
-In terms of React components Info section is just another view (located in [client/src/views/Info](../client/src/views/Info)) that is assigned route (in [App.tsx](../client/src/App.tsx)).  
-There are also some Info-related components inside [client/src/components](../client/src/components) (InfoNav, InfoCharts, InfoTables and InfoSearch at the time of writing).
-
-There are helper functions to handle data formatting and requests - [client/src/utils/infoDataHelpers.ts](../client/src/utils/infoDataHelpers.ts) and [client/src/utils/infoQueryHelpers.ts](../client/src/utils/infoQueryHelpers.ts)
-
-Info section has it's own reducer in Redux store - [client/src/state/info](../client/src/state/info). It handles all data about pools, tokens and overall protocol. The only exception is token/pool watchlist that is stored under [client/src/state/user](../client/src/state/user) reducer.
-
-GraphQL request logic lives under [client/src/state/info/queries](../client/src/state/info/queries) directory. Code over there handles firing requests to StreamingFast subgraph as well as formatting returned values and calculating all the derived data we need.
-
-## Requests flow
-
-When user visits Info page the following requests are fired (names as declared in [client/src/state/info/queries](../client/src/state/info/queries)):
-
-`overview` - gets basic protocol data like volume, liquidity and transaction count. 3 requests are fired for current, 24h ago and 48h ago data.  
-`overviewCharts` - gets data to show liquidity and volume charts on overview page.  
-`overviewTransactions` - gets data to show transaction table on overview page
-
-`prices` - gets BNB prices (current, 24h, 48 and 7d ago) used in calculations (see [client/src/hooks/useBnbPrices.ts](../client/src/hooks/useBnbPrices.ts))
-
-`topTokens` - gets top NN pools by 24h volume. This request just fetches token addresses, full data is handled separately.
-`tokens` - given the list of token addresses retrieves all needed data about these tokens. Done in single request but it is in fact 5 batched requests for different timeframes (needed to calculate rate of change). When user first opens the page this request is requesting data for token addresses acquired via `topTokens` request.
-
-`topPools` - same as `topTokens` but for pools
-`pools` - same as `tokens` but for pools
-
-There are also multiple `blocks` queries to retrieve block numbers at different timestamps.
-
-The flow is controlled by [client/src/state/info/updaters.ts](../client/src/state/info/updaters.ts). When user navigates through the site more pools and tokens are automatically loaded, (e.g. you click on BNB token and pools for BNB are loaded automatically, if you click on BNB-BTCB then BTCB token will be loaded, etc)
-
-There are additional requests for price chart and search that are fired when user uses these features.
-
-## Installation
-
-1. Clone the repository
+### Install server dependencies
 
 ```bash
-git clone https://github.com/ynovate-workspace/SwapMartketplace.git
+npm install --force
 ```
-2. Go to the project directory and install dependencies for both the client and server
+
+### Install client dependencies
 
 ```bash
 cd client
-npm install
-```
-Replace the extension of the file "src/config/constants/networks.txt" to networks.ts
-
-
-```bash
-cd ..
-npm install
+npm install --force
 ```
 
-3. Start the project
+### Run project
 
 ```bash
 npm start
 ```
+
+## Why?
+
+When I wanted to design a shopping website prototype and needed fake data, I had to
+use lorem ipsum data or create a JSON file from the base. I didn't find any online free web service
+to return semi-real shop data instead of lorem ipsum data.
+so I decided to create this simple web service with NodeJs(express) and MongoDB as a database.
+
+## How to
+
+You can fetch data with any kind of methods you know(fetch API, Axios, jquery ajax,...)
+
+### Products
+
+```js
+fields:
+{
+    id:Number,
+    title:String,
+    price:Number,
+    category:String,
+    description:String,
+    image:String
+}
+```
+
+GET:
+
+- /products (get all products)
+- /products/1 (get specific product based on id)
+- /products?limit=5 (limit return results )
+- /products?sort=desc (asc|desc get products in ascending or descending orders (default to asc))
+- /products/products/categories (get all categories)
+- /products/category/jewelery (get all products in specific category)
+- /products/category/jewelery?sort=desc (asc|desc get products in ascending or descending orders (default to asc))
+
+POST:
+
+- /products
+
+-PUT,PATCH
+
+- /products/1
+
+-DELETE
+
+- /products/1
+
+### Carts
+
+```js
+fields:
+{
+    id:Number,
+    userId:Number,
+    date:Date,
+    products:[{productId:Number,quantity:Number}]
+}
+```
+
+GET:
+
+- /carts (get all carts)
+- /carts/1 (get specific cart based on id)
+- /carts?startdate=2020-10-03&enddate=2020-12-12 (get carts in date range)
+- /carts/user/1 (get a user cart)
+- /carts/user/1?startdate=2020-10-03&enddate=2020-12-12 (get user carts in date range)
+- /carts?limit=5 (limit return results )
+- /carts?sort=desc (asc|desc get carts in ascending or descending orders (default to asc))
+
+POST:
+
+- /carts
+
+PUT,PATCH:
+
+- /carts/1
+
+DELETE:
+
+- /carts/1
+
+### Users
+
+```js
+fields:
+{
+    id:20,
+    email:String,
+    username:String,
+    password:String,
+    name:{
+        firstname:String,
+        lastname:String
+        },
+    address:{
+    city:String,
+    street:String,
+    number:Number,
+    zipcode:String,
+    geolocation:{
+        lat:String,
+        long:String
+        }
+    },
+    phone:String
+}
+```
+
+GET:
+
+- /users (get all users)
+- /users/1 (get specific user based on id)
+- /users?limit=5 (limit return results )
+- /users?sort=desc (asc|desc get users in ascending or descending orders (default to asc))
+
+POST:
+
+- /users
+
+PUT,PATCH:
+
+- /users/1
+
+DELETE:
+
+- /users/1
+
+### Auth
+
+```js
+fields:
+{
+    username:String,
+    password:String
+}
+```
+
+POST:
+
+- /auth/login
+

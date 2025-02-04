@@ -1,26 +1,46 @@
-require('module-alias/register');
+const path = require("path");
+const express = require("express");
+const config = require("./config");
+// const connectDB = require('./config/db');
+const configureMiddleware = require("./middleware");
+const configureRoutes = require("./routes");
+const socketio = require("socket.io");
+const gameSocket = require("./socket/index");
 
-// Make sure we are running node 7.6+
-const [major, minor] = process.versions.node.split('.').map(parseFloat);
-if (major < 16 || (major === 16 && minor <= 20)) {
-  console.log('Please upgrade your node.js version at least 16.20.2 or greater. 👌\n ');
-  process.exit();
-}
+// Connect and get reference to mongodb instance
+// let db;
 
-// import environmental variables from our variables.env file
-require('dotenv').config({ path: '.env' });
-require('dotenv').config({ path: '.env.local' });
+// (async function () {
+//   db = await connectDB();
+// })();
 
-const glob = require('glob');
-const path = require('path');
+// Init express app
+const app = express();
 
-glob.sync('./models/**/*.js').forEach(function (file) {
-  require(path.resolve(file));
+// Config Express-Middleware
+configureMiddleware(app);
+
+// Set-up Routes
+configureRoutes(app);
+
+// Start server and listen for connections
+const server = app.listen(config.PORT, () => {
+    console.log(
+        `Server is running in ${config.NODE_ENV} mode and is listening on port ${config.PORT}...`
+    );
 });
 
-// Start our app!
-const app = require('./app');
-app.set('port', process.env.PORT || 8888);
-const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → On PORT : ${server.address().port}`);
+//  Handle real-time poker game logic with socket.io
+const io = socketio(server);
+
+io.on("connect", (socket) => gameSocket.init(socket, io));
+
+// Error handling - close server
+process.on("unhandledRejection", (err) => {
+    // db.disconnect();
+
+    console.error(`Error: ${err.message}`);
+    server.close(() => {
+        process.exit(1);
+    });
 });
