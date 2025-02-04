@@ -57,7 +57,6 @@ const Play = () => {
 
 
   useEffect(() => {
-    console.log(socket, walletAddress)
     if(!socket){
       navigate("/")
     }
