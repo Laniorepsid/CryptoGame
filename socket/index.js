@@ -61,12 +61,10 @@ const init = (socket, io) => {
   socket.on(CS_LOBBY_CONNECT, ({gameId, address, userInfo }) => {
     socket.join(gameId)
     io.to(gameId).emit(SC_LOBBY_CONNECTED, {address, userInfo})
-    console.log( SC_LOBBY_CONNECTED , address, socket.id)
   })
   
   socket.on(CS_LOBBY_DISCONNECT, ({gameId, address, userInfo}) => {
     io.to(gameId).emit(SC_LOBBY_DISCONNECTED, {address, userInfo})
-    console.log(CS_LOBBY_DISCONNECT, address, socket.id);
   })
 
   socket.on(CS_LOBBY_CHAT, ({ gameId, text, userInfo }) => {
@@ -105,7 +103,6 @@ const init = (socket, io) => {
   socket.on(CS_JOIN_TABLE, (tableId) => {
     const table = tables[tableId];
     const player = players[socket.id];
-    console.log("tableid====>", tableId, table, player)
     table.addPlayer(player);
     socket.emit(SC_TABLE_JOINED, { tables: getCurrentTables(), tableId });
     socket.broadcast.emit(SC_TABLES_UPDATED, getCurrentTables());
