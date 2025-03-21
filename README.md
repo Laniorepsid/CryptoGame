@@ -1,4 +1,6 @@
 # CRYPTOOASIS_VER_2
+## ✨ Project architecture
+![demo](.github/image/cryptopoker1.jpg)
 
 ### Install server dependencies
 
