@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { ethers } from 'ethers'; // إضافة الاستيراد هنا
 import globalContext from './../../context/global/globalContext'
 import LoadingScreen from '../../components/loading/LoadingScreen'
 
@@ -11,26 +12,35 @@ import './ConnectWallet.scss'
 
 const ConnectWallet = () => {
   const { setWalletAddress, setChipsAmount } = useContext(globalContext)
-   
   const { socket } = useContext(socketContext)
   const navigate = useNavigate()
   const useQuery = () => new URLSearchParams(useLocation().search);
   let query = useQuery()
 
   useEffect(() => {
-    if(socket !== null && socket.connected === true){
-      const walletAddress = query.get('walletAddress')
-      const gameId = query.get('gameId')
-      const username = query.get('username')
-      if(walletAddress && gameId && username){
-        console.log(username)
-        setWalletAddress(walletAddress)
-        socket.emit(CS_FETCH_LOBBY_INFO, { walletAddress, socketId: socket.id, gameId, username })
-        console.log(CS_FETCH_LOBBY_INFO, { walletAddress, socketId: socket.id, gameId, username })
-        navigate('/play')
-      }
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      provider.send("eth_requestAccounts", [])
+        .then((accounts) => {
+          const walletAddress = accounts[0];
+          setWalletAddress(walletAddress);
+
+          if (socket !== null && socket.connected === true) {
+            const gameId = query.get('gameId');
+            const username = query.get('username');
+            if (gameId && username) {
+              socket.emit(CS_FETCH_LOBBY_INFO, { walletAddress, socketId: socket.id, gameId, username });
+              navigate('/play');
+            }
+          }
+        })
+        .catch((err) => {
+          Swal.fire("Error", "Please install MetaMask or connect to Ethereum wallet", "error");
+        });
+    } else {
+      Swal.fire("Error", "MetaMask not detected", "error");
     }
-  }, [socket])
+  }, [socket]);
 
   return (
     <>
