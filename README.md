@@ -3,7 +3,6 @@
 ![demo](.github/image/cryptopoker1.jpg)
 ![demo](.github/image/cryptopoker2.jpg)
 ## ⚙️ Tech stack
-![demo](.github/architecture.jpg)
 - Frontend: React, node.js, SCSS
 - Ethereum(Rinkeby Testnet), Ganache
 - Etc: web3.js, NFT Storage, MetaMask
@@ -23,6 +22,7 @@ Note :bangbang: the application uses EmailJS in order to send emails using clien
 you need to create EmailJS account [here](https://emailjs.com/) and sets the
 `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, and `VITE_EMAIL_JS_ACCESS_TOKEN` environment
 variables in `.env` file.
+
 **Step 1:**
 Download or clone this repo by using the link below:
 ```bash
@@ -42,12 +42,6 @@ npm install --force
 ```bash
 cd client
 npm install --force
-```
-
-### Run project
-
-```bash
-npm start
 ```
 **Step 3:**
 Execute the following command in order to run the development server locally:
